@@ -7,6 +7,9 @@ import java.time.LocalDate;
  * Verbindung ist getestet
  * Lesen aus Datenbank wird getestet:
  * Getestet wird Tabellenname und Spaltenname und Datentypen
+ *
+ * marmeladenCursor.getInt(1); Zugriff über den Spaltenindex:
+ * Mit 1 wird auf die erste Spalte zugriffen: Indizes JDBC start bei 1
  */
 public class LesenTest {
     public static void main(String[] args) throws SQLException {
@@ -22,11 +25,15 @@ public class LesenTest {
         ResultSet marmeladeCursor = umwandler.executeQuery(abfrage);
         System.out.println(marmeladeCursor);
         while (marmeladeCursor.next()){
-            System.out.println("Und weiter ein Datensatz");
-            int schluessel = marmeladeCursor.getInt("marmelade_id");
-            String sorte =  marmeladeCursor.getString("sorte");
-            int zuckergehalt=  marmeladeCursor.getInt("zuckergehalt");
-            LocalDate eingekocht = marmeladeCursor.getDate("eingekocht").toLocalDate();
+            //System.out.println("Und weiter ein Datensatz");
+            //int schluessel = marmeladeCursor.getInt("marmelade_id");
+            int schluessel = marmeladeCursor.getInt(1);
+            //String sorte =  marmeladeCursor.getString("sorte");
+            String sorte =  marmeladeCursor.getString(2);
+            //int zuckergehalt=  marmeladeCursor.getInt("zuckergehalt");
+            int zuckergehalt=  marmeladeCursor.getInt(3);
+            //LocalDate eingekocht = marmeladeCursor.getDate("eingekocht").toLocalDate();
+            LocalDate eingekocht = marmeladeCursor.getDate(4).toLocalDate();
 
             System.out.println(schluessel +"\t"+ sorte+"\t"+zuckergehalt+"\t"+eingekocht);
 ;        }
