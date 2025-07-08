@@ -38,7 +38,17 @@ public class Marmelade {
         return marmeladeId;
     }
 
+    /**
+     * Beim Speichern in die Datenbank vergibt die Datenbank einen Primärschlüssel.
+     * Dann soll diese ID gesetzt werden
+     * Dannach darf sie nicht mehr geändert werden
+     * @param marmeladeId aus der Datenbank
+     */
     public void setMarmeladeId(int marmeladeId) {
+        if(this.marmeladeId != 0){
+            throw new PrimaeschluesselException("Diese Marmelade ist schon mit der id " + this.marmeladeId
+                    +" in der Datenbank gespeichert");
+        }
         this.marmeladeId = marmeladeId;
     }
 
