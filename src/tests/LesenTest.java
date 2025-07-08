@@ -32,7 +32,6 @@ public class LesenTest {
             String sorte =  marmeladeCursor.getString(2);
             //int zuckergehalt=  marmeladeCursor.getInt("zuckergehalt");
             int zuckergehalt=  marmeladeCursor.getInt(3);
-            //LocalDate eingekocht = marmeladeCursor.getDate("eingekocht").toLocalDate();
             LocalDate eingekocht = marmeladeCursor.getDate(4).toLocalDate();
 
             System.out.println(schluessel +"\t"+ sorte+"\t"+zuckergehalt+"\t"+eingekocht);
