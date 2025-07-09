@@ -50,4 +50,13 @@ public class DatenbankZugriff {
 
     }
 
+    public schreibenEinerMarmeladeInDatenbank(Marmelade zuSchreiben){
+        if(zuSchreiben.getMarmeladeId()() !=0){
+            throw new PrimaeschluesselException("Kein zweites Schreiben in die Datenbank");
+        }
+        // String sqlEingabe = "INSERT INTO Marmelade VALUES(NULL, 'Ananas mit Chili', 60, '2025-1-19' );";
+        String sqlEingaben = "INSERT INTO Marmelade VALUES(NULL, '"+ zuSchreiben.getSorte()+"',"+zuSchreiben.getZuckergehalt()
+                +", '"+zuSchreiben.getGekocht()+"')";
+    }
+
 }
