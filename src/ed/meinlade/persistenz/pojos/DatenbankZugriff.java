@@ -50,13 +50,31 @@ public class DatenbankZugriff {
 
     }
 
-    public schreibenEinerMarmeladeInDatenbank(Marmelade zuSchreiben){
-        if(zuSchreiben.getMarmeladeId()() !=0){
+    public void schreibenEinerMarmeladeInDatenbank(Marmelade zuSchreiben){
+        if(zuSchreiben.getMarmeladeId() !=0){
             throw new PrimaeschluesselException("Kein zweites Schreiben in die Datenbank");
         }
         // String sqlEingabe = "INSERT INTO Marmelade VALUES(NULL, 'Ananas mit Chili', 60, '2025-1-19' );";
-        String sqlEingaben = "INSERT INTO Marmelade VALUES(NULL, '"+ zuSchreiben.getSorte()+"',"+zuSchreiben.getZuckergehalt()
-                +", '"+zuSchreiben.getGekocht()+"')";
+//        String sqlEingaben = "INSERT INTO Marmelade VALUES(NULL, '"+ zuSchreiben.getSorte()+"',"+zuSchreiben.getZuckergehalt()
+//                +", '"+zuSchreiben.getGekocht()+"')";
+        String sqlEingaben = "INSERT INTO Marmelade VALUES(NULL,?,?,?)";
+        //Platzhalter statt Werten aus Objekt
+        try(Connection verbindung = DriverManager.getConnection(url, user, password);
+            PreparedStatement besserUmwandler = verbindung.prepareStatement(sqlEingaben)){
+
+            besserUmwandler.setString(1, zuSchreiben.getSorte());
+            besserUmwandler.setInt(2, zuSchreiben.getZuckergehalt());
+            besserUmwandler.setDate(3, Date.valueOf(zuSchreiben.getGekocht()));
+
+            besserUmwandler.execute();
+
+            //Kaffee Kochen
+            //besserUmwandler.get
+
+        }catch (SQLException ausnahme){
+            System.out.println("Fehler in Insert eine Marmelade:"+ausnahme.getMessage());
+            ausnahme.printStackTrace();
+        }
     }
 
 }
