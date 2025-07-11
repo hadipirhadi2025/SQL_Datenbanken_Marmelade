@@ -19,6 +19,29 @@ public class MarmeladeZuhause {
         neu = new Marmelade("Pfirsich", 60, LocalDate.of(2025, 7, 8));
         System.out.println(neu);
         james.schreibenEinerMarmeladeInDatenbank(neu);
+        //james.schreibenEinerMarmeladeInDatenbank(neu);
+        System.out.println("Geschrieben wurde" + neu);
+
+        neu = new Marmelade("KiwiApfel", 30, LocalDate.now());
+        System.out.println(neu);
+        james.schreibenEinerMarmeladeInDatenbank(neu);
+        System.out.println("Geschrieben wurde" + neu);
+
+        neu = new Marmelade("Toms Erdbeermarmelade mit Honig", 70, LocalDate.of(2022, 7, 8));
+        System.out.println(neu);
+        james.schreibenEinerMarmeladeInDatenbank(neu);
+        //james.schreibenEinerMarmeladeInDatenbank(neu);
+        System.out.println("Geschrieben wurde" + neu);
+
+
+        neu = new Marmelade("Zitronemarmelade mit Ingwer", 70, LocalDate.of(2022, 7, 8));
+        System.out.println(neu);
+        james.schreibenEinerMarmeladeInDatenbank(neu);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         james.schreibenEinerMarmeladeInDatenbank(neu);
         System.out.println("Geschrieben wurde" + neu);
     }

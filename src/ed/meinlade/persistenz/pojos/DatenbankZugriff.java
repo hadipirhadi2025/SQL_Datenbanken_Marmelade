@@ -54,13 +54,14 @@ public class DatenbankZugriff {
         if(zuSchreiben.getMarmeladeId() !=0){
             throw new PrimaeschluesselException("Kein zweites Schreiben in die Datenbank");
         }
+        System.out.println("Kommt gleich in Datenbank;" + zuSchreiben);//id ist 0
         // String sqlEingabe = "INSERT INTO Marmelade VALUES(NULL, 'Ananas mit Chili', 60, '2025-1-19' );";
 //        String sqlEingaben = "INSERT INTO Marmelade VALUES(NULL, '"+ zuSchreiben.getSorte()+"',"+zuSchreiben.getZuckergehalt()
 //                +", '"+zuSchreiben.getGekocht()+"')";
         String sqlEingaben = "INSERT INTO Marmelade VALUES(NULL,?,?,?)";
         //Platzhalter statt Werten aus Objekt
         try(Connection verbindung = DriverManager.getConnection(url, user, password);
-            PreparedStatement besserUmwandler = verbindung.prepareStatement(sqlEingaben)){
+            PreparedStatement besserUmwandler = verbindung.prepareStatement(sqlEingaben, Statement.RETURN_GENERATED_KEYS)){
 
             besserUmwandler.setString(1, zuSchreiben.getSorte());
             besserUmwandler.setInt(2, zuSchreiben.getZuckergehalt());
@@ -68,8 +69,22 @@ public class DatenbankZugriff {
 
             besserUmwandler.execute();
 
+
+            //zuSchreiben.setMarmeladeID(....);(zb 11)
+            //zuSchreiben.setMarmeladeId(11);
+            //Lesen der ID aus der Datenbank
+            //PreparedStatement besserUmwandler = verbindung.prepareStatement(sqlEingaben, Statement.RETURN_GENERATED_KEYS)
+            ResultSet antwortMitSchluessel = besserUmwandler.getGeneratedKeys();
+            //my shätze
+            //zuSchreiben.setMarmeladeId(antwortMitSchluessel.getInt("marmelade_id"));
+            antwortMitSchluessel.next();
+            int erzeugteId = antwortMitSchluessel.getInt(1);
+            //Zuweisen der IS
+            zuSchreiben.setMarmeladeId(erzeugteId);//zb 11
+            System.out.println("So sieht es in der Datenbank aus:" + zuSchreiben);//id ist zb 11
+
             //Kaffee Kochen
-            //besserUmwandler.get
+            //besserUmwandler.
 
         }catch (SQLException ausnahme){
             System.out.println("Fehler in Insert eine Marmelade:"+ausnahme.getMessage());
